@@ -1,1 +1,1 @@
-# Ovo is a desktop assistant that uses speech recognition
+# Ovo is a desktop assistant that uses speech recognition.
