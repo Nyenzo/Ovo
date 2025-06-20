@@ -192,6 +192,4 @@ If you encounter any issues or have questions:
 
 ---
 
-**Made with ❤️ by [Your Name]**
-
 *Transform your desktop experience with voice commands!*
