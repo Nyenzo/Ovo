@@ -6,3 +6,7 @@ python-dotenv==1.0.1
 pystray
 pillow
 google-cloud-speech
+transformers
+torch
+accelerate
+customtkinter
