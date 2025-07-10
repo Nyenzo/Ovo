@@ -24,9 +24,23 @@ import difflib
 import queue
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
+import sys
+
+# Patch: Add vosk DLL directory to PATH for PyInstaller bundle
+if hasattr(sys, '_MEIPASS'):
+    vosk_path = os.path.join(sys._MEIPASS, 'vosk')
+    if os.path.exists(vosk_path):
+        os.add_dll_directory(vosk_path)
 
 # Configure logging and load environment variables
-logging.basicConfig(filename='assistant.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+if os.name == 'nt':
+    log_dir = os.path.join(os.environ.get('APPDATA', os.path.expanduser('~')), 'Ovo')
+else:
+    log_dir = os.path.join(os.path.expanduser('~'), '.ovo')
+os.makedirs(log_dir, exist_ok=True)
+log_file = os.path.join(log_dir, 'assistant.log')
+
+logging.basicConfig(filename=log_file, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Check for first run and setup if needed
 if not os.path.exists('.env'):
