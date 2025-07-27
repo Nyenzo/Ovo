@@ -203,34 +203,8 @@ If you encounter any issues or have questions:
 
 ### Running the EXE
 - Double-click `desktopAssistant.exe`.
-- The assistant will launch with a modern chat UI, chat bubbles, and a sound wave animation for voice input.
 
-### What to include in a Release
-- `desktopAssistant.exe`
-- `vosk-model-small-en-us-0.15` folder (bundled)
-- README.md
+
 
 ### Security
 - **Never** include your `.env` or Google Cloud key in the release or repo.
-
----
-
-## 🆕 Features (Update)
-- Modern chat UI with chat bubbles for all messages
-- Sound wave animation when listening
-- Flexible weather/news/reminder command matching
-- System tray icon and window controls
-
----
-
-## 🛠️ Updated Dependencies
-
-Add to your dependencies list:
-- `vosk`
-- `pyaudio`
-- `pystray`
-- `pillow`
-- `google-cloud-speech`
-- (and keep the existing ones)
-
----
