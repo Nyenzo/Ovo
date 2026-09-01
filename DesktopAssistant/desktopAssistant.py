@@ -26,6 +26,8 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 import sys
 
+from command_parser import parse_weather_command
+
 # Patch: Add vosk DLL directory to PATH for PyInstaller bundle
 if hasattr(sys, '_MEIPASS'):
     vosk_path = os.path.join(sys._MEIPASS, 'vosk')
@@ -299,16 +301,13 @@ def ask_llm_sync(command):
 
 def match_command(command):
     command = command.lower()
-    if "weather" in command:
-        import re
-        match = re.search(r'weather(?: in)? ([a-zA-Z ]+)', command)
-        if match:
-            city = match.group(1).strip()
+    if "weather" in command or "forecast" in command:
+        operation, city = parse_weather_command(command)
+        if operation == "forecast":
+            return lambda c: get_forecast(f"weather forecast in {city}")
+        if operation == "current":
             return lambda c: get_weather(f"current weather in {city}")
-        elif "in" in command:
-            return lambda c: speak("Please specify a city for the weather.")
-        else:
-            return lambda c: speak("Please specify a city for the weather.")
+        return lambda c: speak("Please specify a city for the weather.")
     if any(kw in command for kw in ["time", "what time", "current time", "tell me the time"]):
         return lambda c: tell_time()
     if any(kw in command for kw in ["news", "headlines"]):
